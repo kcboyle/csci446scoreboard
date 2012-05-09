@@ -1,21 +1,28 @@
+var db = "http://kira.com";
 var guessesLeft = 10;
-var highScores = new Array([9, "HarryJamesPotter"], [3, "ZedCthulhu"], [2, "NearlyDied"]);
+//var highScores = new Array([9, "HarryJamesPotter"], [3, "ZedCthulhu"], [2, "NearlyDied"]);
 var correctGuess=Math.round(Math.random() * 100) + 1;
 var win = false;
 
 $(function() {
   updateScore(guessesLeft);
-  populateHighScores(highScores);
+  populateHighScores();
 });
 
-function populateHighScores(scores) {
+/*function populateHighScores(scores) {
   $('div#highScores').empty();
   scores.sort();
   scores.reverse();
   for (var i = 0; i < scores.length; ++i) {
     $('div#highScores').append("<p>" + scores[i][0] + " " + scores[i][1] + "</p>");
   }
-}
+}*/
+
+function populateHighScores() {
+  $.get(db, function(scores)) {
+    $('div#highScores').empty();
+    for (var i = 0; i < scores.length; ++i) {
+      $('div#highScores).append("<p> + scores[i].name + " " + scores[i].score + "</p>");
 
 function updateScore(score) {
   if (win == true) {
