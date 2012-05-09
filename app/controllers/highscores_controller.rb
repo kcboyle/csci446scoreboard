@@ -1,13 +1,10 @@
 class HighscoresController < ApplicationController
-  # GET /highscores
-  # GET /highscores.json
+  skip_before_filter :verify_authenticity_token
+  respond_to :json
+  
   def index
-    @highscores = Highscore.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @highscores }
-    end
+    @scores = Highscore.all.sort_by &:score
+    respond_with(@scores)
   end
 
   # GET /highscores/1
@@ -24,15 +21,11 @@ class HighscoresController < ApplicationController
   # POST /highscores
   # POST /highscores.json
   def create
-    @highscore = Highscore.new(params[:highscore])
+    @score = Highscore.new(name: params[:name], score: params[:score])
 
     respond_to do |format|
-      if @highscore.save
-        format.html { redirect_to @highscore, notice: 'Highscore was successfully created.' }
-        format.json { render json: @highscore, status: :created, location: @highscore }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @highscore.errors, status: :unprocessable_entity }
+      if @score.save
+        format.json { render json: @score, status: :created, location: @score }
       end
     end
   end

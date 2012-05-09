@@ -1,4 +1,4 @@
-var db = "http://kira.com";
+var db = "http://kira.com/highscores";
 var guessesLeft = 10;
 var correctGuess=Math.round(Math.random() * 100) + 1;
 var win = false;
@@ -21,7 +21,7 @@ function updateScore(score) {
   if (win == true) {
     alert("Congratulations! You have survived the game!!");
     var name=prompt("A new high score! Please enter your name ","Your Name");
-    $.post(db, { "name": name, "score": guessesLeft});
+    addNewScore(guessesLeft, name);
     populateHighScores();
 
     var r=confirm("Would you like to play again?");
@@ -37,6 +37,11 @@ function updateScore(score) {
     $('h2#score span#guessesLeft').append(score);
   }
 }
+
+function addNewScore(score, placer) {
+  $.post(db, { "name": placer, "score": score });
+}
+
 
 function parseGuess() {
   guess=document.getElementById("guess").value;
