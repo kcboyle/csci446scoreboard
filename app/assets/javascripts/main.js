@@ -1,6 +1,5 @@
 var db = "http://kira.com";
 var guessesLeft = 10;
-//var highScores = new Array([9, "HarryJamesPotter"], [3, "ZedCthulhu"], [2, "NearlyDied"]);
 var correctGuess=Math.round(Math.random() * 100) + 1;
 var win = false;
 
@@ -9,27 +8,22 @@ $(function() {
   populateHighScores();
 });
 
-/*function populateHighScores(scores) {
-  $('div#highScores').empty();
-  scores.sort();
-  scores.reverse();
-  for (var i = 0; i < scores.length; ++i) {
-    $('div#highScores').append("<p>" + scores[i][0] + " " + scores[i][1] + "</p>");
-  }
-}*/
-
 function populateHighScores() {
-  $.get(db, function(scores)) {
+  $.get(db, function(scores) {
     $('div#highScores').empty();
     for (var i = 0; i < scores.length; ++i) {
-      $('div#highScores).append("<p> + scores[i].name + " " + scores[i].score + "</p>");
-
+      $('div#highScores').append("<p>" + scores[i].name + " " + scores[i].score + "</p>");
+    }
+  })
+}
+      
 function updateScore(score) {
   if (win == true) {
     alert("Congratulations! You have survived the game!!");
-    var name=prompt("A new high score! Please enter your name ","YourName");
-    highScores.push([guessesLeft, name]);
-    populateHighScores(highScores);
+    var name=prompt("A new high score! Please enter your name ","Your Name");
+    $.post(db, { "name": name, "score": guessesLeft});
+    populateHighScores();
+
     var r=confirm("Would you like to play again?");
     if (r == true) {
       $('div#entireBody').slideUp('slow');
