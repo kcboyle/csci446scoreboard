@@ -3,7 +3,7 @@ class HighscoresController < ApplicationController
   respond_to :json
   
   def index
-    @scores = Highscore.all.sort_by &:score
+    @scores = Highscore.all.sort_by(&:score).reverse
     respond_with(@scores)
   end
   
