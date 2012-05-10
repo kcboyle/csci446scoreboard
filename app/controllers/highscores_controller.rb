@@ -6,17 +6,6 @@ class HighscoresController < ApplicationController
     @scores = Highscore.all.sort_by &:score
     respond_with(@scores)
   end
-
-  # GET /highscores/1
-  # GET /highscores/1.json
-  def show
-    @highscore = Highscore.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @highscore }
-    end
-  end
   
   # POST /highscores
   # POST /highscores.json
@@ -29,7 +18,4 @@ class HighscoresController < ApplicationController
       end
     end
   end
-
-  # PUT /highscores/1
-  # PUT /highscores/1.json
 end
