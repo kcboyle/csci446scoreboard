@@ -1,4 +1,4 @@
-var db = "http://kira.com/highscores";
+var db = "http://empty-meadow-1229.herokuapp.com/highscores";
 var guessesLeft = 10;
 var correctGuess=Math.round(Math.random() * 100) + 1;
 var win = false;
